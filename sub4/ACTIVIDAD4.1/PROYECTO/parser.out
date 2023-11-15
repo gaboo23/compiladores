@@ -1,0 +1,264 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    STRING
+
+Grammar
+
+Rule 0     S' -> statement
+Rule 1     statement -> conditional_structure
+Rule 2     conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+Rule 3     condition -> ID LESS NUM
+Rule 4     condition -> ID GREATER NUM
+Rule 5     condition -> ID ASSIGNS NUM
+Rule 6     declaration -> INT ID ASSIGN NUM SEMICOLON
+Rule 7     increment_statement -> ID INCREMENT SEMICOLON
+
+Terminals, with rules where they appear
+
+ASSIGN               : 6
+ASSIGNS              : 5
+ELSE                 : 2
+GREATER              : 4
+ID                   : 3 4 5 6 7
+IF                   : 2
+INCREMENT            : 7
+INT                  : 6
+LBRACE               : 2 2
+LESS                 : 3
+LPAREN               : 2
+NUM                  : 3 4 5 6
+RBRACE               : 2 2
+RPAREN               : 2
+SEMICOLON            : 6 7
+STRING               : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+condition            : 2
+conditional_structure : 1
+declaration          : 2
+increment_statement  : 2
+statement            : 0
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . statement
+    (1) statement -> . conditional_structure
+    (2) conditional_structure -> . IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+
+    IF              shift and go to state 3
+
+    statement                      shift and go to state 1
+    conditional_structure          shift and go to state 2
+
+state 1
+
+    (0) S' -> statement .
+
+
+
+state 2
+
+    (1) statement -> conditional_structure .
+
+    $end            reduce using rule 1 (statement -> conditional_structure .)
+
+
+state 3
+
+    (2) conditional_structure -> IF . LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+
+    LPAREN          shift and go to state 4
+
+
+state 4
+
+    (2) conditional_structure -> IF LPAREN . condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+    (3) condition -> . ID LESS NUM
+    (4) condition -> . ID GREATER NUM
+    (5) condition -> . ID ASSIGNS NUM
+
+    ID              shift and go to state 6
+
+    condition                      shift and go to state 5
+
+state 5
+
+    (2) conditional_structure -> IF LPAREN condition . RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+
+    RPAREN          shift and go to state 7
+
+
+state 6
+
+    (3) condition -> ID . LESS NUM
+    (4) condition -> ID . GREATER NUM
+    (5) condition -> ID . ASSIGNS NUM
+
+    LESS            shift and go to state 8
+    GREATER         shift and go to state 9
+    ASSIGNS         shift and go to state 10
+
+
+state 7
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN . LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE
+
+    LBRACE          shift and go to state 11
+
+
+state 8
+
+    (3) condition -> ID LESS . NUM
+
+    NUM             shift and go to state 12
+
+
+state 9
+
+    (4) condition -> ID GREATER . NUM
+
+    NUM             shift and go to state 13
+
+
+state 10
+
+    (5) condition -> ID ASSIGNS . NUM
+
+    NUM             shift and go to state 14
+
+
+state 11
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE . declaration RBRACE ELSE LBRACE increment_statement RBRACE
+    (6) declaration -> . INT ID ASSIGN NUM SEMICOLON
+
+    INT             shift and go to state 16
+
+    declaration                    shift and go to state 15
+
+state 12
+
+    (3) condition -> ID LESS NUM .
+
+    RPAREN          reduce using rule 3 (condition -> ID LESS NUM .)
+
+
+state 13
+
+    (4) condition -> ID GREATER NUM .
+
+    RPAREN          reduce using rule 4 (condition -> ID GREATER NUM .)
+
+
+state 14
+
+    (5) condition -> ID ASSIGNS NUM .
+
+    RPAREN          reduce using rule 5 (condition -> ID ASSIGNS NUM .)
+
+
+state 15
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration . RBRACE ELSE LBRACE increment_statement RBRACE
+
+    RBRACE          shift and go to state 17
+
+
+state 16
+
+    (6) declaration -> INT . ID ASSIGN NUM SEMICOLON
+
+    ID              shift and go to state 18
+
+
+state 17
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE . ELSE LBRACE increment_statement RBRACE
+
+    ELSE            shift and go to state 19
+
+
+state 18
+
+    (6) declaration -> INT ID . ASSIGN NUM SEMICOLON
+
+    ASSIGN          shift and go to state 20
+
+
+state 19
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE . LBRACE increment_statement RBRACE
+
+    LBRACE          shift and go to state 21
+
+
+state 20
+
+    (6) declaration -> INT ID ASSIGN . NUM SEMICOLON
+
+    NUM             shift and go to state 22
+
+
+state 21
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE . increment_statement RBRACE
+    (7) increment_statement -> . ID INCREMENT SEMICOLON
+
+    ID              shift and go to state 24
+
+    increment_statement            shift and go to state 23
+
+state 22
+
+    (6) declaration -> INT ID ASSIGN NUM . SEMICOLON
+
+    SEMICOLON       shift and go to state 25
+
+
+state 23
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement . RBRACE
+
+    RBRACE          shift and go to state 26
+
+
+state 24
+
+    (7) increment_statement -> ID . INCREMENT SEMICOLON
+
+    INCREMENT       shift and go to state 27
+
+
+state 25
+
+    (6) declaration -> INT ID ASSIGN NUM SEMICOLON .
+
+    RBRACE          reduce using rule 6 (declaration -> INT ID ASSIGN NUM SEMICOLON .)
+
+
+state 26
+
+    (2) conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE .
+
+    $end            reduce using rule 2 (conditional_structure -> IF LPAREN condition RPAREN LBRACE declaration RBRACE ELSE LBRACE increment_statement RBRACE .)
+
+
+state 27
+
+    (7) increment_statement -> ID INCREMENT . SEMICOLON
+
+    SEMICOLON       shift and go to state 28
+
+
+state 28
+
+    (7) increment_statement -> ID INCREMENT SEMICOLON .
+
+    RBRACE          reduce using rule 7 (increment_statement -> ID INCREMENT SEMICOLON .)
+
